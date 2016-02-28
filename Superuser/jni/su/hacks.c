@@ -19,9 +19,10 @@ static struct {
 
 void hacks_init() {
 	char oldCwd[512];
+	int i;
 	getcwd(oldCwd, sizeof(oldCwd));
 	chdir("/data/data");
-	for(int i=0; i<(sizeof(apps_list)/sizeof(apps_list[0])); ++i) {
+	for(i=0; i<(sizeof(apps_list)/sizeof(apps_list[0])); ++i) {
 		apps_list[i].uid = -1;
 		struct stat st_buf;
 		int ret = stat(apps_list[i].package, &st_buf);
@@ -33,7 +34,8 @@ void hacks_init() {
 }
 
 void hacks_update_context(struct su_context* ctxt) {
-	for(int i=0; i<(sizeof(apps_list)/sizeof(apps_list[0])); ++i) {
+	int i;
+	for(i=0; i<(sizeof(apps_list)/sizeof(apps_list[0])); ++i) {
 		LOGW("hacks: Testing (%s:%d), %d", apps_list[i].package, ctxt->from.uid);
 		if(apps_list[i].uid != ctxt->from.uid)
 			continue;
